@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 /**
@@ -20,22 +22,30 @@ import javax.persistence.ManyToMany;
  * @author daniel
  */
 @Entity
-public class Category implements Serializable {
+public class Product implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    private Double price;
+
+    @ManyToMany
+    @JoinTable(
+            name = "product_category",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private List<Category> categories = new ArrayList<>();
+
     
-    @ManyToMany(mappedBy = "categories")
-    private List<Product> products = new ArrayList<>();
-
-    public Category() {
+    public Product() {
     }
-
-    public Category(Integer id, String name) {
+    
+    public Product(Integer id, String name, Double price) {
         this.id = id;
         this.name = name;
+        this.price = price;
     }
 
     public Integer getId() {
@@ -54,19 +64,26 @@ public class Category implements Serializable {
         this.name = name;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setPrice(Double price) {
+        this.price = price;
     }
-    
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 79 * hash + Objects.hashCode(this.id);
+        int hash = 5;
+        hash = 59 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -81,7 +98,7 @@ public class Category implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Category other = (Category) obj;
+        final Product other = (Product) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
