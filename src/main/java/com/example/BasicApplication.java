@@ -34,7 +34,6 @@ public class BasicApplication implements CommandLineRunner {
         Product p2 = new Product(null, "Impressora", 800.00);
         Product p3 = new Product(null, "Mouse", 80.00);
         
-        
         p1.getCategories().addAll(Arrays.asList(cat1));
         p2.getCategories().addAll(Arrays.asList(cat1, cat2));
         p3.getCategories().addAll(Arrays.asList(cat1));
