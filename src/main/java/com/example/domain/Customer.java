@@ -6,6 +6,7 @@
 package com.example.domain;
 
 import com.example.domain.enums.CustomerType;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -35,6 +36,7 @@ public class Customer implements Serializable {
     private String cpfOrCnpj;
     private Integer type;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "customer")
     private List<Address> addresses = new ArrayList<>();
 
