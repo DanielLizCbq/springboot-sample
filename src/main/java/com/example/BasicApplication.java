@@ -7,6 +7,7 @@ import com.example.domain.Category;
 import com.example.domain.City;
 import com.example.domain.Customer;
 import com.example.domain.Order;
+import com.example.domain.OrderItem;
 import com.example.domain.Product;
 import com.example.domain.Region;
 import com.example.domain.enums.CustomerType;
@@ -15,6 +16,7 @@ import com.example.repositories.AddressRepository;
 import com.example.repositories.CategoryRepository;
 import com.example.repositories.CityRepository;
 import com.example.repositories.CustomerRepository;
+import com.example.repositories.OrderItemRepository;
 import com.example.repositories.OrderRepository;
 import com.example.repositories.PaymentRepository;
 import com.example.repositories.ProductRepository;
@@ -52,6 +54,9 @@ public class BasicApplication implements CommandLineRunner {
     
     @Autowired
     private PaymentRepository paymentRepository;
+    
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(BasicApplication.class, args);
@@ -115,6 +120,19 @@ public class BasicApplication implements CommandLineRunner {
         
         orderRepository.saveAll(Arrays.asList(o1, o2));
         paymentRepository.saveAll(Arrays.asList(payment1, payment2));
+        
+        OrderItem oi1 = new OrderItem(o1, p1, 0.00, 1, 2000.00);
+        OrderItem oi2 = new OrderItem(o1, p3, 0.00, 2, 80.00);
+        OrderItem oi3 = new OrderItem(o2, p2, 100.00, 1, 800.00);
+        
+        o1.getItems().addAll(Arrays.asList(oi1, oi2));
+        o2.getItems().addAll(Arrays.asList(oi3));
+        
+        p1.getItems().addAll(Arrays.asList(oi1));
+        p2.getItems().addAll(Arrays.asList(oi3));
+        p3.getItems().addAll(Arrays.asList(oi2));
+        
+        orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3));
         
     }
 }
