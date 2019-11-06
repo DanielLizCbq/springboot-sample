@@ -1,18 +1,25 @@
 package com.example;
 
 import com.example.domain.Address;
+import com.example.domain.BillPayment;
+import com.example.domain.CardPayment;
 import com.example.domain.Category;
 import com.example.domain.City;
 import com.example.domain.Customer;
+import com.example.domain.Order;
 import com.example.domain.Product;
 import com.example.domain.Region;
 import com.example.domain.enums.CustomerType;
+import com.example.domain.enums.PaymentStatus;
 import com.example.repositories.AddressRepository;
 import com.example.repositories.CategoryRepository;
 import com.example.repositories.CityRepository;
 import com.example.repositories.CustomerRepository;
+import com.example.repositories.OrderRepository;
+import com.example.repositories.PaymentRepository;
 import com.example.repositories.ProductRepository;
 import com.example.repositories.RegionRepository;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -39,6 +46,12 @@ public class BasicApplication implements CommandLineRunner {
     
     @Autowired
     private AddressRepository addressRepository;
+    
+    @Autowired
+    private OrderRepository orderRepository;
+    
+    @Autowired
+    private PaymentRepository paymentRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(BasicApplication.class, args);
@@ -87,5 +100,21 @@ public class BasicApplication implements CommandLineRunner {
         
         customerRepository.saveAll(Arrays.asList(ct1));
         addressRepository.saveAll(Arrays.asList(a1, a2));
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        
+        Order o1 = new Order(null, sdf.parse("30/09/2017 10:32"), ct1, a1);
+        Order o2 = new Order(null, sdf.parse("10/10/2017 19:35"), ct1, a2);
+        
+        CardPayment payment1 = new CardPayment(null, PaymentStatus.SETTLED, o1, 6);
+        o1.setPayment(payment1);
+        BillPayment payment2 = new BillPayment(null, PaymentStatus.PENDING, o2, sdf.parse("20/10/2017 00:00"), null);
+        o2.setPayment(payment2);
+        
+        ct1.getOrders().addAll(Arrays.asList(o1, o2));
+        
+        orderRepository.saveAll(Arrays.asList(o1, o2));
+        paymentRepository.saveAll(Arrays.asList(payment1, payment2));
+        
     }
 }
