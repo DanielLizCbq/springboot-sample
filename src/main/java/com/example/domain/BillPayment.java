@@ -6,6 +6,7 @@
 package com.example.domain;
 
 import com.example.domain.enums.PaymentStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 import javax.persistence.Entity;
 
@@ -16,7 +17,10 @@ import javax.persistence.Entity;
 @Entity
 public class BillPayment extends Payment {
     
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dueDate;
+    
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date paymentDate;
 
     public BillPayment() {

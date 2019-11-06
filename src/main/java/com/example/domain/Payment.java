@@ -6,11 +6,10 @@
 package com.example.domain;
 
 import com.example.domain.enums.PaymentStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -30,6 +29,7 @@ public abstract class Payment implements Serializable {
     private Integer id;
     private Integer status;
     
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "purchase_id")
     @MapsId

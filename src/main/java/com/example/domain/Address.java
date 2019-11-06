@@ -5,7 +5,7 @@
  */
 package com.example.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -31,7 +31,7 @@ public class Address implements Serializable {
     private String neighborhood;
     private String zipCode;
     
-    @JsonBackReference
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;

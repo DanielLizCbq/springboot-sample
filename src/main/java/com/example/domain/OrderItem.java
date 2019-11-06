@@ -5,6 +5,7 @@
  */
 package com.example.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -19,6 +20,7 @@ import javax.persistence.Entity;
 @Entity(name = "purchase_item")
 public class OrderItem implements Serializable {
     
+    @JsonIgnore
     @EmbeddedId
     private OrderItemPK id = new OrderItemPK();
     
@@ -37,6 +39,7 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
+    @JsonIgnore
     public Order getOrder() {
         return id.getOrder();
     }
