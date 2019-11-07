@@ -22,7 +22,7 @@ public class CustomerService {
     @Autowired
     private CustomerRepository repo;
 
-    public Customer search(Integer id) {
+    public Customer find(Integer id) {
         Optional<Customer> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Object not found! Id: " + id + ", Type: " + Customer.class.getName()));
