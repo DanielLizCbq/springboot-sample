@@ -5,28 +5,46 @@
  */
 package com.example.dto;
 
+import com.example.services.validation.CustomerInsert;
 import java.io.Serializable;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Length;
 
 /**
  *
  * @author daniel
  */
+@CustomerInsert
 public class CustomerNewDTO implements Serializable {
     
     /* Customer data */
+    @NotEmpty(message = "Name can't be empty")
+    @Length(min = 5, max = 120, message = "Name must be contain a minimum of {min} and a maximum of {max} characters")
     private String name;
+    
+    @NotEmpty(message = "Email can't be empty")
+    @Email(message = "Invalid email")
     private String email;
+    
+    @NotEmpty(message = "CPF or CNPJ can't be empty")
     private String cpfOrCnpj;
     private Integer type;
     
     /* Address data */
+    @NotEmpty(message = "Street can't be empty")
     private String street;
+    
+    @NotEmpty(message = "Number can't be empty")
     private String number;
     private String complement;
     private String neighborhood;
+    
+    @NotEmpty(message = "Zip code can't be empty")
     private String zipCode;
     
     /* Phone data */
+    @NotEmpty(message = "Phone can't be empty")
     private String phone; 
     private String phone2; 
     private String phone3; 
