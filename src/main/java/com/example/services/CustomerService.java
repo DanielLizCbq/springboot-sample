@@ -23,6 +23,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -52,6 +53,7 @@ public class CustomerService {
         return repo.findAll(pageRequest);
     }
 
+    @Transactional
     public Customer insert(Customer obj) {
         obj.setId(null);
         obj = repo.save(obj);
