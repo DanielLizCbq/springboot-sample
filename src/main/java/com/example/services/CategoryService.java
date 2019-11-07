@@ -6,6 +6,7 @@
 package com.example.services;
 
 import com.example.domain.Category;
+import com.example.dto.CategoryDTO;
 import com.example.repositories.CategoryRepository;
 import com.example.services.exceptions.DataIntegrityException;
 import com.example.services.exceptions.ObjectNotFoundException;
@@ -60,6 +61,10 @@ public class CategoryService {
         } catch(DataIntegrityViolationException e) {
             throw new DataIntegrityException("Cannot delete a category that has products.");
         }
+    }
+    
+    public Category fromDTO(CategoryDTO objDto) {
+        return new Category(objDto.getId(), objDto.getName());
     }
     
 

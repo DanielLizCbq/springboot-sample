@@ -7,6 +7,8 @@ package com.example.dto;
 
 import com.example.domain.Category;
 import java.io.Serializable;
+import javax.validation.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Length;
 
 /**
  *
@@ -15,6 +17,9 @@ import java.io.Serializable;
 public class CategoryDTO implements Serializable {
     
     private Integer id;
+    
+    @NotEmpty(message = "Name can't be empty")
+    @Length(min = 5, max = 80, message = "Module must be contain a minimum of {min} and a maximum of {max} characters")
     private String name;
 
     public CategoryDTO() {
