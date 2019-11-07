@@ -9,6 +9,7 @@ import com.example.domain.Category;
 import com.example.repositories.CategoryRepository;
 import com.example.services.exceptions.DataIntegrityException;
 import com.example.services.exceptions.ObjectNotFoundException;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -28,6 +29,10 @@ public class CategoryService {
         Optional<Category> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Object not found! Id: " + id + ", Type: " + Category.class.getName()));
+    }
+    
+    public List<Category> findAll() {
+        return repo.findAll();
     }
     
     public Category insert(Category obj) {

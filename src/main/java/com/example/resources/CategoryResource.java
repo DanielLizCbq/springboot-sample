@@ -6,8 +6,11 @@
 package com.example.resources;
 
 import com.example.domain.Category;
+import com.example.dto.CategoryDTO;
 import com.example.services.CategoryService;
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,6 +38,13 @@ public class CategoryResource {
     public ResponseEntity<Category> find(@PathVariable Integer id) {
         Category obj = service.find(id);
         return ResponseEntity.ok(obj);
+    }
+    
+    @GetMapping()
+    public ResponseEntity<List<CategoryDTO>> findAll() {
+        List<Category> list = service.findAll();
+        List<CategoryDTO> listDTO = list.stream().map(obj -> new CategoryDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok(listDTO);
     }
 
     @PostMapping
