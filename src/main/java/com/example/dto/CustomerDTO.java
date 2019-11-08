@@ -6,6 +6,7 @@
 package com.example.dto;
 
 import com.example.domain.Customer;
+import com.example.services.validation.CustomerUpdate;
 import java.io.Serializable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -15,6 +16,7 @@ import org.hibernate.validator.constraints.Length;
  *
  * @author daniel
  */
+@CustomerUpdate
 public class CustomerDTO implements Serializable {
 
     private Integer id;
